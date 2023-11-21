@@ -34,5 +34,22 @@ module.exports = function override(config) {
       fullySpecified: false,
     },
   });
+
+  const plugin = findwebpackplugin(config.plugins, 'DefinePlugin');
+
+  const processenv = plugin.definitions['process.env'] || {};
+
+  const transformedenv = Object.keys(processenv)
+      .filter((key) => env_prefix.test(key))
+      .reduce((env, key) => {
+          const crakey = key.replace('react_app_', '');
+          env[crakey] = processenv[key];
+          return env;
+      }, {});
+  plugin.definitions['process.env'] = {
+      ...processenv,
+      ...transformedenv,
+  };
+
   return config;
 };
