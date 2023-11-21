@@ -22,6 +22,13 @@ module.exports = function override(config) {
     zlib: false
   });
   config.resolve.fallback = fallback;
+
+  config.plugins = (config.plugins || []).concat([
+    new webpack.ProvidePlugin({
+      process: "process/browser",
+      Buffer: ["buffer", "Buffer"],
+    }),
+  ]);  
   
   // Prevents this warning to be shown:
   config.ignoreWarnings = [/Failed to parse source map/];
