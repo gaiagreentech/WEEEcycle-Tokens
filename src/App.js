@@ -328,7 +328,23 @@ async function getAsset(){
   await new Promise(resolve => setTimeout(resolve, 1000));
 }
 
-async function getTemplate(){
+async function getRawData(){
+    console.log('getRawData')
+    const ipfs = await fgStorage.ensureIpfsIsRunning()
+    console.log(ipfs)
+    const cid = 'bafybeibks5ute3txdug5cy3dyyggogbp7cmav57rylgwllnl6lghsjyml4'
+
+    // Get all at once
+    //const bufferAll = await fgStorage.getRawData(cid)
+
+    // Get first 100000 bytes
+    const buffer = await fgStorage.getRawData(cid, {offset: 0, length: 100000}, (bytes) => {
+      console.log(`${bytes} bytes received`)
+    })
+    console.log(buffer)
+  }
+  
+  async function getTemplate(){
   console.log('getTemplate')
   /**
    * Search templates
@@ -418,9 +434,10 @@ function App() {
         <button onClick={addAssetWithNestedTemplates}>addAssetWithNestedTemplates</button>
         <button onClick={addTemplate}>addTemplate</button>
         <button onClick={authenticate}>Authenticate</button>
-        <button onClick={getAccounts}>getAccounts</button>
         <button onClick={getAccount}>getAccount</button>
+        <button onClick={getAccounts}>getAccounts</button>
         <button onClick={getAsset}>getAsset</button>
+        <button onClick={getRawData}>getRawData</button>
         <button onClick={getTemplate}>getTemplate</button>
         <button onClick={search}>search</button>
         <button onClick={searchAssets}>searchAssets</button>
