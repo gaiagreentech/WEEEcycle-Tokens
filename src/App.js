@@ -33,7 +33,7 @@ class App extends Component {
     constructor(props) {
         super(props);
         this.state = {
-}
+        }
     }
 
     addAssetWithNestedAssets = async () => {
@@ -435,27 +435,54 @@ class App extends Component {
 
     render() {
         return (
-          <div className="App">
-              <header className="App-header">
-                <p>
-                    Filecoin CO2.Storage examples.
-                </p>
-                <button onClick={this.addAssetWithNestedAssets}>addAssetWithNestedAssets</button>
-                <button onClick={this.addAssetWithNestedTemplates}>addAssetWithNestedTemplates</button>
-                <button onClick={this.addTemplate}>addTemplate</button>
-                <button onClick={this.authenticate}>Authenticate</button>
-                <button onClick={this.getAccount}>getAccount</button>
-                <button onClick={this.getAccounts}>getAccounts</button>
-                <button onClick={this.getAsset}>getAsset</button>
-                <button onClick={this.getRawData}>getRawData</button>
-                <button onClick={this.getTemplate}>getTemplate</button>
-                <button onClick={this.search}>search</button>
-                <button onClick={this.searchAssets}>searchAssets</button>
-                <button onClick={this.searchTemplates}>searchTemplates</button>
-                </header>
-          </div>
+            <div className="container">
+                <div className="row">
+
+
+                    <p>
+                        Filecoin CO2.Storage examples.
+                    </p>
+                </div>
+                <div className='row'>
+                    <button onClick={this.addAssetWithNestedAssets}>addAssetWithNestedAssets</button>
+                </div>
+
+                <div className='row' align-items='center'>
+                    <button onClick={this.addAssetWithNestedTemplates}>addAssetWithNestedTemplates</button>
+                </div>
+                <div className='row'>
+                    <button onClick={this.addTemplate}>addTemplate</button>
+                </div>
+                <div className='row'>
+                    <button onClick={this.authenticate}>Authenticate</button>
+                </div>
+                <div className='row'>
+                    <button onClick={this.getAccount}>getAccount</button>
+                </div>
+                <div className='row'>
+                    <button onClick={this.getAccounts}>getAccounts</button>
+                </div>
+                <div className='row'>
+                    <button onClick={this.getAsset}>getAsset</button>
+                </div>
+                <div className='row'>
+                    <button onClick={this.getRawData}>getRawData</button>
+                </div>
+                <div className='row'>
+                    <button onClick={this.getTemplate}>getTemplate</button>
+                </div>
+                <div className='row'>
+                    <button onClick={this.search}>search</button>
+                </div>
+                <div className='row'>
+                    <button onClick={this.searchAssets}>searchAssets</button>
+                </div>
+                <div className='row'>
+                    <button onClick={this.searchTemplates}>searchTemplates</button>
+                </div>
+            </div>
         );
-      }
+    }
 }
 
 
