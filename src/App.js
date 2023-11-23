@@ -9,32 +9,32 @@ const authType = "pk"
 const auth = new Auth(authType)
 
 const fgStorage = new FGStorage({
-  authType: "pk", 
-  ipfsNodeType: "client", 
-  ipfsNodeAddr: ipfsNodeAddr, 
-  fgApiHost: fgApiUrl
+    authType: "pk",
+    ipfsNodeType: "client",
+    ipfsNodeAddr: ipfsNodeAddr,
+    fgApiHost: fgApiUrl
 })
 
 const fgStorageForTemplate = new FGStorage({
-  authType: "metamask", 
-  ipfsNodeType: "browser", 
-  ipfsNodeAddr: ipfsNodeAddr, 
-  fgApiHost: fgApiUrl
+    authType: "metamask",
+    ipfsNodeType: "browser",
+    ipfsNodeAddr: ipfsNodeAddr,
+    fgApiHost: fgApiUrl
 })
 
 const fgStorageForAsset = new FGStorage({
-  authType: 'pk',
-  ipfsNodeType: 'client',
-  ipfsNodeAddr: ipfsNodeAddr,
-  fgApiHost: fgApiUrl
+    authType: 'pk',
+    ipfsNodeType: 'client',
+    ipfsNodeAddr: ipfsNodeAddr,
+    fgApiHost: fgApiUrl
 })
 
 class App extends Component {
     constructor(props) {
         super(props);
-            this.state = {
-        }
-    }  
+        this.state = {
+}
+    }
 
     addAssetWithNestedAssets = async () => {
         console.log('addAssetWithNestedAssets')
@@ -50,7 +50,7 @@ class App extends Component {
                 "value": "bafyreidiib3f66jm5fjdfiigum3u7mm5smxsjyrhdnjfdvg4akx26x246i"
             }
         ]
-        
+
         // "Error whilst requesting \"privateKeyToAccount\" method. InvalidPrivateKeyError: Invalid Private Key, Not a valid string or uint8Array"
         let addAssetResponse = await fgStorage.addAsset(
             assetElements,
@@ -87,30 +87,30 @@ class App extends Component {
             },
             'Nested types example',
             (response) => {
-                if(response.status === 'uploading') {
+                if (response.status === 'uploading') {
                     this.loading = true
                     console.log(`${response.filename}: ${response.progress.toFixed(2)}%`)
                 }
                 else {
-                    console.dir(response, {depth: null})
+                    console.dir(response, { depth: null })
                 }
             }
         )
-        if(addAssetResponse.error != null) {
+        if (addAssetResponse.error != null) {
             console.error(addAssetResponse.error)
             await new Promise(reject => setTimeout(reject, 300));
         }
-        
-        console.dir(addAssetResponse.result, {depth: null})
-        
+
+        console.dir(addAssetResponse.result, { depth: null })
+
         await new Promise(resolve => setTimeout(resolve, 1000));
-        
+
     }
 
     addAssetWithNestedTemplates = async () => {
         console.log('addAssetWithNestedTemplates')
         const typeCid = "bafyreiaw66zcnfrf6atbslmgcsk6bty4fxfleil4l4dpxvc55c52vwvc7i"
-      
+
         const assetElements = [
             {
                 "name": "id",
@@ -183,9 +183,9 @@ class App extends Component {
                 ]
             }
         ]
-        
+
         let addAssetResponse = await fgStorage.addAsset(
-          assetElements,
+            assetElements,
             {
                 parent: null,
                 name: "Asset 300 CLI (rapaygo examples)",
@@ -219,139 +219,139 @@ class App extends Component {
             },
             'rapaygo examples',
             (response) => {
-                if(response.status === 'uploading') {
+                if (response.status === 'uploading') {
                     this.loading = true
                     console.log(`${response.filename}: ${response.progress.toFixed(2)}%`)
                 }
                 else {
-                    console.dir(response, {depth: null})
+                    console.dir(response, { depth: null })
                 }
             }
         )
-        if(addAssetResponse.error != null) {
+        if (addAssetResponse.error != null) {
             console.error(addAssetResponse.error)
             await new Promise(reject => setTimeout(reject, 300));
         }
-        
-        console.dir(addAssetResponse.result, {depth: null})
-        
+
+        console.dir(addAssetResponse.result, { depth: null })
+
         await new Promise(resolve => setTimeout(resolve, 1000));
     }
 
     addTemplate = async () => {
         console.log('addTemplate')
         const template = {
-          Country: { type: 'string', mandatory: true },
-          Retired: { type: 'boolean' },
-          Vintage: { type: 'date', mandatory: true }
+            Country: { type: 'string', mandatory: true },
+            Retired: { type: 'boolean' },
+            Vintage: { type: 'date', mandatory: true }
         }
         const templateName = 'CLI example test template (1.0.3-v1)'
-        const templateBase = {title: 'VCS', reference: 'bafyreigenzubua7r7rlxomgpyy2o4q46u6anvw3qvbxmlxhifkbrdbhcwm'}
+        const templateBase = { title: 'VCS', reference: 'bafyreigenzubua7r7rlxomgpyy2o4q46u6anvw3qvbxmlxhifkbrdbhcwm' }
         const templateDescription = 'Test template (1.0.3-v1)'
         const templateParent = 'bafyreigijwcxu4nda2nol5x3cepjhel6mlvgyiizvivki3dpg3ttegdl2y'
         const chainName = 'sandbox'
         let addTemplateResponse = await fgStorage.addTemplate(template, templateName, templateBase, templateDescription, templateParent, chainName)
-        if(addTemplateResponse.error != null) {
+        if (addTemplateResponse.error != null) {
             console.error(addTemplateResponse.error)
             await new Promise(reject => setTimeout(reject, 300));
         }
-      
-        console.dir(addTemplateResponse.result, {depth: null})
-      
+
+        console.dir(addTemplateResponse.result, { depth: null })
+
         await new Promise(resolve => setTimeout(resolve, 1000));
-      
+
     }
-      
+
     authenticate = async () => {
         /**
          * Authenticate with a private key
          */
-      
+
         console.log('authenticate')
         let authResponse = await auth.authenticate()
-      
-        if(authResponse.error != null) {
+
+        if (authResponse.error != null) {
             console.error(authResponse.error)
             await new Promise(reject => setTimeout(reject, 300));
         }
-      
-        console.dir(authResponse.result, {depth: null})
-      
+
+        console.dir(authResponse.result, { depth: null })
+
         await new Promise(resolve => setTimeout(resolve, 1000));
-      }
-      
+    }
+
     getAccount = async () => {
         console.log('getAccount')
         let accountResponse = await fgStorage.getAccount('sandbox')
-        if(accountResponse.error != null) {
+        if (accountResponse.error != null) {
             console.error(accountResponse.error)
             await new Promise(reject => setTimeout(reject, 300));
         }
-        
-        console.dir(accountResponse.result, {depth: null})
-        
+
+        console.dir(accountResponse.result, { depth: null })
+
         await new Promise(resolve => setTimeout(resolve, 1000));
     }
-    
+
     getAccounts = async () => {
         console.log('getAccounts')
         let accountsResponse = await fgStorage.getAccounts('sandbox')
-        if(accountsResponse.error != null) {
+        if (accountsResponse.error != null) {
             console.log('ERROR!!!')
             console.error(accountsResponse.error)
         }
         console.log(accountsResponse.result)
     }
-    
+
     getAsset = async () => {
-    /**
-     * Search assets
-     * parameters: (chainName, phrases, cid, name, base, account, offset, limit, sortBy, sortDir)
-     * // default data_chain: 'sandbox', phrases: null, cid: null, name: null, base: null, account: null, offset: 0, limit: 10
-     */
-    
+        /**
+         * Search assets
+         * parameters: (chainName, phrases, cid, name, base, account, offset, limit, sortBy, sortDir)
+         * // default data_chain: 'sandbox', phrases: null, cid: null, name: null, base: null, account: null, offset: 0, limit: 10
+         */
+
         console.log('getAsset')
         let searchAssetsResponse = await fgStorage.searchAssets('sandbox')    // ('SP Audits', 'Water')
-        if(searchAssetsResponse.error != null) {
+        if (searchAssetsResponse.error != null) {
             console.error(searchAssetsResponse.error)
             await new Promise(reject => setTimeout(reject, 300));
         }
-        
+
         /**
          * Get asset
          * parameters: asset block CID
          */
-        
-        const lastListedAsset = searchAssetsResponse.result.assets[searchAssetsResponse.result.assets.length-1]
-        if(lastListedAsset) {
+
+        const lastListedAsset = searchAssetsResponse.result.assets[searchAssetsResponse.result.assets.length - 1]
+        if (lastListedAsset) {
             let getAssetResponse = await fgStorage.getAsset(lastListedAsset.block)
-            if(getAssetResponse.error != null) {
+            if (getAssetResponse.error != null) {
                 console.error(getAssetResponse.error)
                 await new Promise(reject => setTimeout(reject, 300));
             }
-            
-            console.dir(getAssetResponse.result, {depth: null})
+
+            console.dir(getAssetResponse.result, { depth: null })
         }
-        
+
         await new Promise(resolve => setTimeout(resolve, 1000));
     }
-    
+
     getRawData = async () => {
         console.log('getRawData')
         const ipfs = await fgStorage.ensureIpfsIsRunning()
         console.log(ipfs)
         const cid = 'bafybeibks5ute3txdug5cy3dyyggogbp7cmav57rylgwllnl6lghsjyml4'
-    
+
         // Get all at once
         //const bufferAll = await fgStorage.getRawData(cid)
-    
+
         // Get first 100000 bytes
-        const buffer = await fgStorage.getRawData(cid, {offset: 0, length: 100000}, (bytes) => {
-        console.log(`${bytes} bytes received`)
+        const buffer = await fgStorage.getRawData(cid, { offset: 0, length: 100000 }, (bytes) => {
+            console.log(`${bytes} bytes received`)
         })
         console.log(buffer)
     }
-    
+
     getTemplate = async () => {
         console.log('getTemplate')
         /**
@@ -359,33 +359,33 @@ class App extends Component {
          * parameters: (chainName, phrases, cid, name, base, account, offset, limit, sortBy, sortDir)
          * // default data_chain: 'sandbox', phrases: null, cid: null, name: null, base: null, account: null, offset: 0, limit: 10
          */
-        
+
         let searchTemplatesResponse = await fgStorage.searchTemplates('sandbox')    // ('SP Audits', 'Water')
-        if(searchTemplatesResponse.error != null) {
+        if (searchTemplatesResponse.error != null) {
             console.error(searchTemplatesResponse.error)
             await new Promise(reject => setTimeout(reject, 300));
         }
-        
+
         /**
          * Get template
          * parameters: template block CID
          */
-        
-        const lastListedTemplate = searchTemplatesResponse.result.templates[searchTemplatesResponse.result.templates.length-1]
-        if(lastListedTemplate) {
+
+        const lastListedTemplate = searchTemplatesResponse.result.templates[searchTemplatesResponse.result.templates.length - 1]
+        if (lastListedTemplate) {
             let getTemplateResponse = await fgStorage.getTemplate(lastListedTemplate.block)
-            if(getTemplateResponse.error != null) {
+            if (getTemplateResponse.error != null) {
                 console.error(getTemplateResponse.error)
                 await new Promise(reject => setTimeout(reject, 300));
             }
-            
-            console.dir(getTemplateResponse.result, {depth: null})
+
+            console.dir(getTemplateResponse.result, { depth: null })
         }
-        
+
         await new Promise(resolve => setTimeout(resolve, 1000));
-        
+
     }
-    
+
     search = async () => {
         console.log('search')
         /**
@@ -393,29 +393,29 @@ class App extends Component {
          * parameters: (chainName, phrases, dataStructure, cid, parent, name, description, base, 
         reference, contentCid, creator, createdFrom, createdTo, version, offset, limit, sortBy, sortDir)
         */
-        
-        let searchResponse = await fgStorage.search(null, null, 'asset', null, null, null, null, null, 
-        'bafyreigcprw3dp3mrsv2xgysomratgv3oz4cpl3rsiij2hzucckyxfbpd4')
-        if(searchResponse.error != null) {
+
+        let searchResponse = await fgStorage.search(null, null, 'asset', null, null, null, null, null,
+            'bafyreigcprw3dp3mrsv2xgysomratgv3oz4cpl3rsiij2hzucckyxfbpd4')
+        if (searchResponse.error != null) {
             console.error(searchResponse.error)
             await new Promise(reject => setTimeout(reject, 300));
         }
-        
-        console.dir(searchResponse.result, {depth: null})
-        
-        await new Promise(resolve => setTimeout(resolve, 1000));  
+
+        console.dir(searchResponse.result, { depth: null })
+
+        await new Promise(resolve => setTimeout(resolve, 1000));
     }
-    
+
     searchAssets = async () => {
         console.log('searchAssets')
         let SearchAssetsResponse = await fgStorageForAsset.searchAssets('sandbox')
-        if(SearchAssetsResponse.error != null) {
+        if (SearchAssetsResponse.error != null) {
             console.error(SearchAssetsResponse.error)
         }
         console.log('Total assets:', SearchAssetsResponse.result.total)
-        console.dir(SearchAssetsResponse.result.assets, {depth: null})
+        console.dir(SearchAssetsResponse.result.assets, { depth: null })
     }
-    
+
     searchTemplates = async () => {
         console.log('searchTemplates')
         /**
@@ -423,9 +423,9 @@ class App extends Component {
          * parameters: (chainName, phrases, cid, name, base, account, offset, limit, sortBy, sortDir)
          * default data_chain: 'sandbox', phrases: null, cid: null, name: null, base: null, account: null, offset: 0, limit: 10
          */
-        
+
         let searchTemplatesResponse = await fgStorageForTemplate.searchTemplates('sandbox')    // ('SP Audits', 'Water')
-        if(searchTemplatesResponse.error != null) {
+        if (searchTemplatesResponse.error != null) {
             console.error(searchTemplatesResponse.error)
         }
         console.log(searchTemplatesResponse.result)
@@ -436,10 +436,10 @@ class App extends Component {
     render() {
         return (
           <div className="App">
-            <header className="App-header">
+              <header className="App-header">
                 <p>
                     Filecoin CO2.Storage examples.
-                </p>   
+                </p>
                 <button onClick={this.addAssetWithNestedAssets}>addAssetWithNestedAssets</button>
                 <button onClick={this.addAssetWithNestedTemplates}>addAssetWithNestedTemplates</button>
                 <button onClick={this.addTemplate}>addTemplate</button>
@@ -455,7 +455,7 @@ class App extends Component {
                 </header>
           </div>
         );
-    }
+      }
 }
 
 
