@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import './App.css';
 import { FGStorage, Auth } from '@co2-storage/js-api';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const ipfsNodeAddr = "/dns4/web2.co2.storage/tcp/5002/https"
 const fgApiUrl = "https://web2.co2.storage"
@@ -108,7 +110,7 @@ class App extends Component {
     }
 
     addAssetWithNestedTemplates = async () => {
-        console.log('addAssetWithNestedTemplates')
+        toast.info('addAssetWithNestedTemplates')
         const typeCid = "bafyreiaw66zcnfrf6atbslmgcsk6bty4fxfleil4l4dpxvc55c52vwvc7i"
 
         const assetElements = [
@@ -192,28 +194,28 @@ class App extends Component {
                 description: "Asset 300 CLI (rapaygo examples)",
                 template: typeCid,    // CID of above defined type
                 filesUploadStart: () => {
-                    console.log("Upload started")
+                    toast.success('Upload started')
                 },
                 filesUpload: async (bytes, path) => {
-                    console.log(`${bytes} uploaded`)
+                    toast.success(`${bytes} uploaded`)
                 },
                 filesUploadEnd: () => {
-                    console.log("Upload finished")
+                    toast.success('Upload finished')
                 },
                 waitingBacalhauJobStart: () => {
-                    console.log("Waiting for Bacalhau job to start execution")
+                    toast.success('Waiting for Bacalhau job to start execution')
                 },
                 bacalhauJobStarted: () => {
-                    console.log("Bacalhau job started execution")
+                    toast.success('Bacalhau job started execution')
                 },
                 createAssetStart: () => {
-                    console.log("Creating asset")
+                    toast.success('Creating asset')
                 },
                 createAssetEnd: () => {
-                    console.log("Asset created")
+                    toast.success('Asset created')
                 },
                 error: (err) => {
-                    console.log(err)
+                    toast.error(err)
                     return
                 }
             },
@@ -436,48 +438,51 @@ class App extends Component {
     render() {
         return (
             <div className="container">
-                <div className="row">
-
-
+                <div className='row top-buffer'>
+                    <div class="form-group">
+                        <ToastContainer />
+                    </div> 
+                </div>
+                <div className="row big-top-buffer">
                     <p>
                         Filecoin CO2.Storage examples.
                     </p>
                 </div>
-                <div className='row'>
+                <div className='row top-buffer'>
                     <button onClick={this.addAssetWithNestedAssets}>addAssetWithNestedAssets</button>
                 </div>
 
-                <div className='row' align-items='center'>
+                <div className='row top-buffer' align-items='center'>
                     <button onClick={this.addAssetWithNestedTemplates}>addAssetWithNestedTemplates</button>
                 </div>
-                <div className='row'>
+                <div className='row top-buffer'>
                     <button onClick={this.addTemplate}>addTemplate</button>
                 </div>
-                <div className='row'>
+                <div className='row top-buffer'>
                     <button onClick={this.authenticate}>Authenticate</button>
                 </div>
-                <div className='row'>
+                <div className='row top-buffer'>
                     <button onClick={this.getAccount}>getAccount</button>
                 </div>
-                <div className='row'>
+                <div className='row top-buffer'>
                     <button onClick={this.getAccounts}>getAccounts</button>
                 </div>
-                <div className='row'>
+                <div className='row top-buffer'>
                     <button onClick={this.getAsset}>getAsset</button>
                 </div>
-                <div className='row'>
+                <div className='row top-buffer'>
                     <button onClick={this.getRawData}>getRawData</button>
                 </div>
-                <div className='row'>
+                <div className='row top-buffer'>
                     <button onClick={this.getTemplate}>getTemplate</button>
                 </div>
-                <div className='row'>
+                <div className='row top-buffer'>
                     <button onClick={this.search}>search</button>
                 </div>
-                <div className='row'>
+                <div className='row top-buffer'>
                     <button onClick={this.searchAssets}>searchAssets</button>
                 </div>
-                <div className='row'>
+                <div className='row top-buffer'>
                     <button onClick={this.searchTemplates}>searchTemplates</button>
                 </div>
             </div>
